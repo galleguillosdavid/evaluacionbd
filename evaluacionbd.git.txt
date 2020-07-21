@@ -1,0 +1,777 @@
+CREATE TABLE alternativas (
+    id             INTEGER NOT NULL,
+    descripcion    CHAR(100),
+    valorlogico    CHAR(100),
+    percent        INTEGER,
+    preguntas_id   INTEGER NOT NULL
+);
+
+ALTER TABLE alternativas ADD CONSTRAINT alternativas_pk PRIMARY KEY ( id );
+
+CREATE TABLE alumnos (
+    id          INTEGER NOT NULL,
+    nombre      CHAR(100),
+    nota        INTEGER,
+    cursos_id   INTEGER
+);
+
+ALTER TABLE alumnos ADD CONSTRAINT alumnos_pk PRIMARY KEY ( id );
+
+CREATE TABLE cursos (
+    id       INTEGER NOT NULL,
+    nombre   CHAR(100)
+);
+
+ALTER TABLE cursos ADD CONSTRAINT cursos_pk PRIMARY KEY ( id );
+
+CREATE TABLE preguntas (
+    id          INTEGER NOT NULL,
+    enunciado   CHAR(100),
+    puntaje     INTEGER,
+    test_id     INTEGER
+);
+
+ALTER TABLE preguntas ADD CONSTRAINT preguntas_pk PRIMARY KEY ( id );
+
+CREATE TABLE test (
+    id            INTEGER NOT NULL,
+    nombre        CHAR(100),
+    descripcion   CHAR(100),
+    creacion      DATE,
+    autor         CHAR(50),
+    unidades_id   INTEGER NOT NULL
+);
+
+ALTER TABLE test ADD CONSTRAINT test_pk PRIMARY KEY ( id );
+
+CREATE TABLE test_alumnos_fk (
+    alumnos_id   INTEGER NOT NULL,
+    test_id      INTEGER NOT NULL
+)
+LOGGING;
+
+ALTER TABLE test_alumnos_fk ADD CONSTRAINT test_alumnos_fk_pk PRIMARY KEY ( alumnos_id,
+                                                                            test_id );
+
+CREATE TABLE unidades (
+    id          INTEGER NOT NULL,
+    numero      INTEGER,
+    nombre      CHAR(100),
+    cursos_id   INTEGER NOT NULL
+);
+
+ALTER TABLE unidades ADD CONSTRAINT unidades_pk PRIMARY KEY ( id );
+
+ALTER TABLE alternativas
+    ADD CONSTRAINT alternativas_preguntas_fk FOREIGN KEY ( preguntas_id )
+        REFERENCES preguntas ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE alumnos
+    ADD CONSTRAINT alumnos_cursos_fk FOREIGN KEY ( cursos_id )
+        REFERENCES cursos ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE preguntas
+    ADD CONSTRAINT preguntas_test_fk FOREIGN KEY ( test_id )
+        REFERENCES test ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE test_alumnos_fk
+    ADD CONSTRAINT test_alumnos_fk_alumnos_fk FOREIGN KEY ( alumnos_id )
+        REFERENCES alumnos ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE test_alumnos_fk
+    ADD CONSTRAINT test_alumnos_fk_test_fk FOREIGN KEY ( test_id )
+        REFERENCES test ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE test
+    ADD CONSTRAINT test_unidades_fk FOREIGN KEY ( unidades_id )
+        REFERENCES unidades ( id )
+    NOT DEFERRABLE;
+
+ALTER TABLE unidades
+    ADD CONSTRAINT unidades_cursos_fk FOREIGN KEY ( cursos_id )
+        REFERENCES cursos ( id )
+    NOT DEFERRABLE;
+
+insert into alumnos values (1,'David Galleguillos',0,1);
+insert into alumnos values (2,'Andres Ruiz',0,2);
+insert into alumnos values (3,'Pedro Picapiedras',0,3);
+insert into alumnos values (4,'Juan Rebolledo',0,4);
+insert into alumnos values (5,'Augusto Palma',0,5);
+insert into alumnos values (6,'Miguel Alfonso',0,6);
+insert into alumnos values (7,'Jose Jose',0,7);
+insert into alumnos values (8,'Claudia Muñoz',0,8);
+insert into alumnos values (9,'Andrea Yañez',0,9);
+insert into alumnos values (10,'Jose David',0,10);
+insert into alumnos values (11,'Amulek',0,11);
+insert into alumnos values (12,'Claudia Muñoz',0,12);
+insert into alumnos values (13,'Juan Molina',0,13);
+insert into alumnos values (14,'Eduardo Herrera',0,14);
+insert into alumnos values (15,'Nicols Suezo',0,15);
+insert into alumnos values (16,'Katherina Seguel',0,16);
+insert into alumnos values (17,'Diego Rm',0,17);
+insert into alumnos values (18,'Gabriel Ignacio',0,1);
+insert into alumnos values (19,'Carlos Jorge',0,2);
+insert into alumnos values (20,'Antonio Chavez',0,3);
+insert into alumnos values (21,'Maria Bernardita',0,4);
+insert into alumnos values (22,'Fernanda America',0,5);
+insert into alumnos values (23,'Felipe Quintupra',0,6);
+insert into alumnos values (24,'Rodrigo Rebolledo',0,7);
+insert into alumnos values (25,'Sebastian Chuaqui',0,8);
+insert into alumnos values (26,'BUGS BUNNY',0,9);
+insert into alumnos values (27,'BLANCA NIEVES Y LOS 7 ENANITOS',0,10);
+insert into alumnos values (28,' ED, EDD Y EDDIE',0,11);
+insert into alumnos values (29,'SILVESTRE Y PIOLÍN',0,12);
+insert into alumnos values (30,'POKEMÓN',0,13);
+insert into alumnos values (31,'EL OSO YOGUI Y BUBÚ',0,14);
+insert into alumnos values (32,'EL COYOTE Y EL CORRECAMINOS',0,15);
+insert into alumnos values (33,'TOM Y JERRY',0,16);
+insert into alumnos values (34,'LOS PITUFOS',0,17);
+insert into alumnos values (35,'EL REY LEÓN',0,1);
+insert into alumnos values (36,'EL PAJARO LOCO',0,2);
+insert into alumnos values (37,'LA PANTERA ROSA',0,3);
+insert into alumnos values (38,'MICKEY MOUSE',0,4);
+insert into alumnos values (39,'BEN 10',0,5);
+insert into alumnos values (40,'EL GALLO CLAUDIO',0,6);
+insert into alumnos values (41,'GOKÚ (DRAGÓN BALL)',0,7);
+insert into alumnos values (42,'OSCAR (OASIS)',0,8);
+insert into alumnos values (43,'LAS CHICAS SUPERPODEROSAS',0,9);
+insert into alumnos values (44,'PEPE LE PEW',0,10);
+insert into alumnos values (45,'EL DEMONIO DE TAZMANIA',0,11);
+insert into alumnos values (46,'TRIBILIN (GOOFY)',0,12);
+insert into alumnos values (47,'PLUTO',0,13);
+insert into alumnos values (48,'PETER PAN',0,14);
+insert into alumnos values (49,'EL PATO DONALD',0,15);
+insert into alumnos values (50,'DUMBO',0,16);
+insert into alumnos values (51,'MINNIE Y DAISY',0,17);
+insert into alumnos values (52,'LA VACA Y EL POLLITO',0,1);
+insert into alumnos values (53,'SPEEDY GONZÁLES',0,2);
+insert into alumnos values (54,'DIGIMON',0,3);
+insert into alumnos values (55,'CORAJE EL PERRO COBARDE',0,4);
+insert into alumnos values (56,'DEXTER',0,5);
+insert into alumnos values (57,'PEDRO (PETE)',0,6);
+insert into alumnos values (58,'SAILOR MOON',0,7);
+insert into alumnos values (59,'PEPE PÓTAMO',0,8);
+insert into alumnos values (60,'YO SOY LA COMADREJA Y JAIMICO',0,9);
+insert into alumnos values (61,'JOHNNY BRAVO',0,10);
+insert into alumnos values (62,'PORKY',0,11);
+insert into alumnos values (63,'EL LEÓN MELQUIADES',0,12);
+insert into alumnos values (64,'MANDIBULIN',0,13);
+insert into alumnos values (65,'GASPARÍN',0,14);
+insert into alumnos values (66,'LA TORTUGA DARTAGNAN Y DUM DUM',0,15);
+insert into alumnos values (67,'LOS OSOS MONTAÑESES',0,16);
+insert into alumnos values (68,'LEONCIO Y TRISTÓN',0,17);
+insert into alumnos values (69,'EL CAPITÁN CAVERNÍCOLA',0,1);
+insert into alumnos values (70,'CANUTO Y CANITO',0,2);
+insert into alumnos values (71,'METEORO',0,3);
+insert into alumnos values (72,'WINNIE POOH',0,4);
+insert into alumnos values (73,'EL PATO LUCAS',0,5);
+insert into alumnos values (74,'MAFALDA',0,6);
+insert into alumnos values (75,'GARFIELD',0,7);
+insert into alumnos values (76,'ZAFIRO, LA PRINCESA CABALLERO',0,8);
+insert into alumnos values (77,'MARCO',0,9);
+insert into alumnos values (78,'CANDY',0,10);
+insert into alumnos values (79,'BOB ESPONJA',0,11);
+insert into alumnos values (80,'FELIX EL GATO',0,12);
+insert into alumnos values (81,'EL LAGARTO JUANCHO',0,13);
+insert into alumnos values (82,'TIRO LOCO McGRAW',0,14);
+insert into alumnos values (83,'MAGUILA GORILA',0,15);
+insert into alumnos values (84,'SCOOBY DOO',0,16);
+insert into alumnos values (85,'PIXIE, DIXIE Y EL GATO JINKS',0,17);
+insert into alumnos values (86,'HUCLEBERRY HOUND',0,1);
+insert into alumnos values (87,'LOS SUPERSÓNICOS',0,2);
+insert into alumnos values (88,'LOS SIMPSON',0,3);
+insert into alumnos values (89,'LA HORMIGA ATÓMICA',0,4);
+insert into alumnos values (90,'ELMER GRUÑÓN',0,5);
+insert into alumnos values (91,'MISTER MAGOO',0,6);
+insert into alumnos values (92,'COOL McCOOL',0,7);
+insert into alumnos values (93,'HEIDI',0,8);
+insert into alumnos values (94,'ASTROBOY',0,9);
+insert into alumnos values (95,'7.-LOS PICAPIEDRA',0,10);
+insert into alumnos values (96,'70.- LINDO PULGOSO (PRECIOUS PUPP)',0,11);
+insert into alumnos values (97,'71.- PATÁN (MUTTLEY) Y PIERRE NODOYUNA',0,12);
+insert into alumnos values (98,'72.- RISITAS (MUMBLY)',0,13);
+insert into alumnos values (99,'73.- LA PEQUEÑA LULY Y TOBY',0,14);
+insert into alumnos values (100,'74.- LA ABEJA MAYA',0,15);
+insert into alumnos values (101,'75.- SUPERCAMPEONES',0,16);
+insert into alumnos values (102,'76.- SNOOPY Y CHARLIE BROWN',0,17);
+insert into alumnos values (103,'77.- DROOPY',0,1);
+insert into alumnos values (104,'SAM BIGOTES',0,2);
+insert into alumnos values (105,'EL INSPECTOR ARDILLA',0,3);
+insert into alumnos values (106,'DON GATO Y SU PANDILLA',0,4);
+insert into alumnos values (107,'DOS PERROS TONTOS',0,5);
+insert into alumnos values (108,'BETTY BOOP',0,6);
+insert into alumnos values (109,'LOS PADRINOS MÁGICOS',0,7);
+insert into alumnos values (110,'LOS FOSTER',0,8);
+insert into alumnos values (111,'CLARABELLE',0,9);
+insert into alumnos values (112,'KND: LOS CHICOS DEL BARRIO',0,10);
+insert into alumnos values (113,'BILLY & MANDY',0,11);
+insert into alumnos values (114,'LA OVEJA SHAUN',0,12);
+insert into alumnos values (115,'SUPER RATÓN',0,13);
+insert into alumnos values (116,'LOS RUGRATS',0,14);
+insert into alumnos values (117,'MAHOU SHOUJO MADOKA MAGICA',0,15);
+insert into alumnos values (118,'POPEYE EL MARINO',0,16);
+insert into alumnos values (119,'PUCCA',0,17);
+insert into alumnos values (120,'FUTURAMA',0,1);
+insert into alumnos values (121,'EL LOBO HOKEY',0,2);
+insert into alumnos values (122,'MARSUPILAMI',0,3);
+insert into alumnos values (123,'JIMMY NEUTRÓN',0,4);
+insert into alumnos values (124,'LA BANDA DEL PATIO (RECREO)',0,5);
+insert into alumnos values (125,'LOS PINGUINOS DE MADAGASCAR',0,6);
+insert into alumnos values (126,'EL ESCUADRÓN DEL TIEMPO',0,7);
+insert into alumnos values (127,'PASMAROTE Y ROCKY',0,8);
+insert into alumnos values (128,'LA GATA LOCA Y EL RATÓN IGNACIO',0,9);
+
+insert into cursos values (1,'Desarrollo de Aplicaciones Móviles Android Trainee');
+insert into cursos values (2,'Ingles A1');
+insert into cursos values (3,'Comercio Electrónico y Marketing Digital');
+insert into cursos values (4,'Trabajo Remoto');
+insert into cursos values (5,'Desarrollo de Aplicaciones Full Stack Javascript Trainee');
+insert into cursos values (6,'Diseñador UX/UI');
+insert into cursos values (7,'Nodo Virtual for Dummies');
+insert into cursos values (8,'Analista de datos');
+insert into cursos values (9,'Arquitecto Cloud');
+insert into cursos values (10,'Científico de datos');
+insert into cursos values (11,'Especialista DevOps');
+insert into cursos values (12,'Product Owner Agile');
+insert into cursos values (13,'Ingles A2');
+insert into cursos values (14,'Ingles B1');
+insert into cursos values (15,'Ingles B2');
+insert into cursos values (16,'Ingles C1');
+insert into cursos values (17,'Desarrollo de Aplicaciones Full Stack Java Trainee');    
+
+
+insert into unidades values (1,1,'Introduccion',1);
+insert into unidades values (2,2,'Completa ejercicios',1);
+insert into unidades values (3,3,'Ambientacion',1);
+insert into unidades values (4,4,'Unidad 1',1);
+insert into unidades values (5,5,'Unidad 2',1);
+insert into unidades values (6,6,'Unidad 3',1);
+insert into unidades values (7,7,'Unidad 4',1);
+insert into unidades values (8,8,'Unidad 5',1);
+insert into unidades values (9,9,'Unidad 6',1);
+insert into unidades values (10,10,'Unidad Final',1);
+insert into unidades values (11,1,'Introduccion',2);
+insert into unidades values (12,2,'Completa ejercicios',2);
+insert into unidades values (13,3,'Ambientacion',2);
+insert into unidades values (14,4,'Unidad 1',2);
+insert into unidades values (15,5,'Unidad 2',2);
+insert into unidades values (16,6,'Unidad 3',2);
+insert into unidades values (17,7,'Unidad 4',2);
+insert into unidades values (18,8,'Unidad 5',2);
+insert into unidades values (19,9,'Unidad 6',2);
+insert into unidades values (20,10,'Unidad Final',2);
+insert into unidades values (21,1,'Introduccion',3);
+insert into unidades values (22,2,'Completa ejercicios',3);
+insert into unidades values (23,3,'Ambientacion',3);
+insert into unidades values (24,4,'Unidad 1',3);
+insert into unidades values (25,5,'Unidad 2',3);
+insert into unidades values (26,6,'Unidad 3',3);
+insert into unidades values (27,7,'Unidad 4',3);
+insert into unidades values (28,8,'Unidad 5',3);
+insert into unidades values (29,9,'Unidad 6',3);
+insert into unidades values (30,10,'Unidad Final',3);
+insert into unidades values (31,1,'Introduccion',4);
+insert into unidades values (32,2,'Completa ejercicios',4);
+insert into unidades values (33,3,'Ambientacion',4);
+insert into unidades values (34,4,'Unidad 1',4);
+insert into unidades values (35,5,'Unidad 2',4);
+insert into unidades values (36,6,'Unidad 3',4);
+insert into unidades values (37,7,'Unidad 4',4);
+insert into unidades values (38,8,'Unidad 5',4);
+insert into unidades values (39,9,'Unidad 6',4);
+insert into unidades values (40,10,'Unidad Final',4);
+insert into unidades values (41,1,'Introduccion',5);
+insert into unidades values (42,2,'Completa ejercicios',5);
+insert into unidades values (43,3,'Ambientacion',5);
+insert into unidades values (44,4,'Unidad 1',5);
+insert into unidades values (45,5,'Unidad 2',5);
+insert into unidades values (46,6,'Unidad 3',5);
+insert into unidades values (47,7,'Unidad 4',5);
+insert into unidades values (48,8,'Unidad 5',5);
+insert into unidades values (49,9,'Unidad 6',5);
+insert into unidades values (50,10,'Unidad Final',5);
+insert into unidades values (51,1,'Introduccion',6);
+insert into unidades values (52,2,'Completa ejercicios',6);
+insert into unidades values (53,3,'Ambientacion',6);
+insert into unidades values (54,4,'Unidad 1',6);
+insert into unidades values (55,5,'Unidad 2',6);
+insert into unidades values (56,6,'Unidad 3',6);
+insert into unidades values (57,7,'Unidad 4',6);
+insert into unidades values (58,8,'Unidad 5',6);
+insert into unidades values (59,9,'Unidad 6',6);
+insert into unidades values (60,10,'Unidad Final',6);
+insert into unidades values (61,1,'Introduccion',7);
+insert into unidades values (62,2,'Completa ejercicios',7);
+insert into unidades values (63,3,'Ambientacion',7);
+insert into unidades values (64,4,'Unidad 1',7);
+insert into unidades values (65,5,'Unidad 2',7);
+insert into unidades values (66,6,'Unidad 3',7);
+insert into unidades values (67,7,'Unidad 4',7);
+insert into unidades values (68,8,'Unidad 5',7);
+insert into unidades values (69,9,'Unidad 6',7);
+insert into unidades values (70,10,'Unidad Final',7);
+insert into unidades values (71,1,'Introduccion',8);
+insert into unidades values (72,2,'Completa ejercicios',8);
+insert into unidades values (73,3,'Ambientacion',8);
+insert into unidades values (74,4,'Unidad 1',8);
+insert into unidades values (75,5,'Unidad 2',8);
+insert into unidades values (76,6,'Unidad 3',8);
+insert into unidades values (77,7,'Unidad 4',8);
+insert into unidades values (78,8,'Unidad 5',8);
+insert into unidades values (79,9,'Unidad 6',8);
+insert into unidades values (80,10,'Unidad Final',8);
+insert into unidades values (81,1,'Introduccion',9);
+insert into unidades values (82,2,'Completa ejercicios',9);
+insert into unidades values (83,3,'Ambientacion',9);
+insert into unidades values (84,4,'Unidad 1',9);
+insert into unidades values (85,5,'Unidad 2',9);
+insert into unidades values (86,6,'Unidad 3',9);
+insert into unidades values (87,7,'Unidad 4',9);
+insert into unidades values (88,8,'Unidad 5',9);
+insert into unidades values (89,9,'Unidad 6',9);
+insert into unidades values (90,10,'Unidad Final',9);
+insert into unidades values (91,1,'Introduccion',10);
+insert into unidades values (92,2,'Completa ejercicios',10);
+insert into unidades values (93,3,'Ambientacion',10);
+insert into unidades values (94,4,'Unidad 1',10);
+insert into unidades values (95,5,'Unidad 2',10);
+insert into unidades values (96,6,'Unidad 3',10);
+insert into unidades values (97,7,'Unidad 4',10);
+insert into unidades values (98,8,'Unidad 5',10);
+insert into unidades values (99,9,'Unidad 6',10);
+insert into unidades values (100,10,'Unidad Final',10);
+
+INSERT INTO test values (1,'PSeInt Basico','Esta prueba inicial de la unidad 1','18-07-2020','David Galleguillos',1);
+INSERT INTO test values (2,'PSeInt Medio','Esta prueba de nivel medio de la unidad 1','18-07-2020','David Galleguillos',1);
+INSERT INTO test values (3,'PSeInt Avanzado','Esta es la prueba de nivel avanzado de la unidad 1','18-07-2020','David Galleguillos',1);
+INSERT INTO test values (4,'Java  Basico','Esta prueba inicial de la unidad 2','18-07-2020','David Galleguillos',2);
+INSERT INTO test values (5,'Java  Medio','Esta prueba de nivel medio de la unidad 2','18-07-2020','David Galleguillos',2);
+INSERT INTO test values (6,'Java  Avanzado','Esta es la prueba de nivel avanzado de la unidad 2','18-07-2020','David Galleguillos',2);
+INSERT INTO test values (7,'Base de datos Basico','Esta prueba inicial de la unidad 3','18-07-2020','David Galleguillos',3);
+INSERT INTO test values (8,'Base de datos Medio','Esta prueba de nivel medio de la unidad 3','18-07-2020','David Galleguillos',3);
+INSERT INTO test values (9,'Base de datos Avanzado','Esta es la prueba de nivel avanzado de la unidad 3','18-07-2020','David Galleguillos',3);
+INSERT INTO test values (10,'Android estudio JavaBasico','Esta prueba inicial de la unidad 4','18-07-2020','David Galleguillos',4);
+INSERT INTO test values (11,'Android estudio JavaMedio','Esta prueba de nivel medio de la unidad 4','18-07-2020','David Galleguillos',4);
+INSERT INTO test values (12,'Android estudio JavaAvanzado','Esta es la prueba de nivel avanzado de la unidad 4','18-07-2020','David Galleguillos',4);
+INSERT INTO test values (13,'Android estudio kotlin Basico','Esta prueba inicial de la unidad 5','18-07-2020','David Galleguillos',5);
+INSERT INTO test values (14,'Android estudio kotlin Medio','Esta prueba de nivel medio de la unidad 5','18-07-2020','David Galleguillos',5);
+INSERT INTO test values (15,'Android estudio kotlin Avanzado','Esta es la prueba de nivel avanzado de la unidad 5','18-07-2020','David Galleguillos',5);
+INSERT INTO test values (16,'Apresto laboral Basico','Esta prueba inicial de la unidad 6','18-07-2020','David Galleguillos',6);
+INSERT INTO test values (17,'Apresto laboral Medio','Esta prueba de nivel medio de la unidad 6','18-07-2020','David Galleguillos',6);
+INSERT INTO test values (18,'Apresto laboral Avanzado','Esta es la prueba de nivel avanzado de la unidad 6','18-07-2020','David Galleguillos',6);
+INSERT INTO test values (19,'Practica 1 Basico','Esta prueba inicial de la unidad 7','18-07-2020','David Galleguillos',7);
+INSERT INTO test values (20,'Practica 1 Medio','Esta prueba de nivel medio de la unidad 7','18-07-2020','David Galleguillos',7);
+INSERT INTO test values (21,'Practica 1 Avanzado','Esta es la prueba de nivel avanzado de la unidad 7','18-07-2020','David Galleguillos',7);
+INSERT INTO test values (22,'Practica 2 Basico','Esta prueba inicial de la unidad 8','18-07-2020','David Galleguillos',8);
+INSERT INTO test values (23,'Practica 2 Medio','Esta prueba de nivel medio de la unidad 8','18-07-2020','David Galleguillos',8);
+INSERT INTO test values (24,'Practica 2 Avanzado','Esta es la prueba de nivel avanzado de la unidad 8','18-07-2020','David Galleguillos',8);
+INSERT INTO test values (25,'Practica 3 Basico','Esta prueba inicial de la unidad 9','18-07-2020','David Galleguillos',9);
+INSERT INTO test values (26,'Practica 3 Medio','Esta prueba de nivel medio de la unidad 9','18-07-2020','David Galleguillos',9);
+INSERT INTO test values (27,'Practica 3 Avanzado','Esta es la prueba de nivel avanzado de la unidad 9','18-07-2020','David Galleguillos',9);
+INSERT INTO test values (28,'Evaluación final Basico','Esta prueba inicial de la unidad 10','18-07-2020','David Galleguillos',10);
+INSERT INTO test values (29,'Evaluación final Medio','Esta prueba de nivel medio de la unidad 10','18-07-2020','David Galleguillos',10);
+INSERT INTO test values (30,'Evaluación final Avanzado','Esta es la prueba de nivel avanzado de la unidad 10','18-07-2020','David Galleguillos',10);
+INSERT INTO test values (31,'Duolingo Basico','Esta prueba inicial de la unidad 11','18-07-2020','David Galleguillos',11);
+INSERT INTO test values (32,'Duolingo Medio','Esta prueba de nivel medio de la unidad 11','18-07-2020','David Galleguillos',11);
+INSERT INTO test values (33,'Duolingo Avanzado','Esta es la prueba de nivel avanzado de la unidad 11','18-07-2020','David Galleguillos',11);
+INSERT INTO test values (34,'Verbos elementales Basico','Esta prueba inicial de la unidad 12','18-07-2020','David Galleguillos',12);
+INSERT INTO test values (35,'Verbos elementales Medio','Esta prueba de nivel medio de la unidad 12','18-07-2020','David Galleguillos',12);
+INSERT INTO test values (36,'Verbos elementales Avanzado','Esta es la prueba de nivel avanzado de la unidad 12','18-07-2020','David Galleguillos',12);
+INSERT INTO test values (37,'Diccionario Basico','Esta prueba inicial de la unidad 13','18-07-2020','David Galleguillos',13);
+INSERT INTO test values (38,'Diccionario Medio','Esta prueba de nivel medio de la unidad 13','18-07-2020','David Galleguillos',13);
+INSERT INTO test values (39,'Diccionario Avanzado','Esta es la prueba de nivel avanzado de la unidad 13','18-07-2020','David Galleguillos',13);
+INSERT INTO test values (40,'Intercambio Basico','Esta prueba inicial de la unidad 14','18-07-2020','David Galleguillos',14);
+INSERT INTO test values (41,'Intercambio Medio','Esta prueba de nivel medio de la unidad 14','18-07-2020','David Galleguillos',14);
+INSERT INTO test values (42,'Intercambio Avanzado','Esta es la prueba de nivel avanzado de la unidad 14','18-07-2020','David Galleguillos',14);
+INSERT INTO test values (43,'Patway Basico','Esta prueba inicial de la unidad 15','18-07-2020','David Galleguillos',15);
+INSERT INTO test values (44,'Patway Medio','Esta prueba de nivel medio de la unidad 15','18-07-2020','David Galleguillos',15);
+INSERT INTO test values (45,'Patway Avanzado','Esta es la prueba de nivel avanzado de la unidad 15','18-07-2020','David Galleguillos',15);
+INSERT INTO test values (46,'BYU Basico','Esta prueba inicial de la unidad 16','18-07-2020','David Galleguillos',16);
+INSERT INTO test values (47,'BYU  Medio','Esta prueba de nivel medio de la unidad 16','18-07-2020','David Galleguillos',16);
+INSERT INTO test values (48,'BYU Avanzado','Esta es la prueba de nivel avanzado de la unidad 16','18-07-2020','David Galleguillos',16);
+INSERT INTO test values (49,'Practica 1 Basico','Esta prueba inicial de la unidad 17','18-07-2020','David Galleguillos',17);
+INSERT INTO test values (50,'Practica 1 Medio','Esta prueba de nivel medio de la unidad 17','18-07-2020','David Galleguillos',17);
+INSERT INTO test values (51,'Practica 1 Avanzado','Esta es la prueba de nivel avanzado de la unidad 17','18-07-2020','David Galleguillos',17);
+INSERT INTO test values (52,'Practica 2 Basico','Esta prueba inicial de la unidad 18','18-07-2020','David Galleguillos',18);
+INSERT INTO test values (53,'Practica 2 Medio','Esta prueba de nivel medio de la unidad 18','18-07-2020','David Galleguillos',18);
+INSERT INTO test values (54,'Practica 2 Avanzado','Esta es la prueba de nivel avanzado de la unidad 18','18-07-2020','David Galleguillos',18);
+INSERT INTO test values (55,'Practica 3 Basico','Esta prueba inicial de la unidad 19','18-07-2020','David Galleguillos',19);
+INSERT INTO test values (56,'Practica 3 Medio','Esta prueba de nivel medio de la unidad 19','18-07-2020','David Galleguillos',19);
+INSERT INTO test values (57,'Practica 3 Avanzado','Esta es la prueba de nivel avanzado de la unidad 19','18-07-2020','David Galleguillos',19);
+INSERT INTO test values (58,'Evaluación final InglesBasico','Esta prueba inicial de la unidad 20','18-07-2020','David Galleguillos',20);
+INSERT INTO test values (59,'Evaluación final InglesMedio','Esta prueba de nivel medio de la unidad 20','18-07-2020','David Galleguillos',20);
+INSERT INTO test values (60,'Evaluación final InglesAvanzado','Esta es la prueba de nivel avanzado de la unidad 20','18-07-2020','David Galleguillos',20);
+INSERT INTO test values (61,'Introduccion al comercio Basico','Esta prueba inicial de la unidad 21','18-07-2020','David Galleguillos',21);
+INSERT INTO test values (62,'Introduccion al comercio Medio','Esta prueba de nivel medio de la unidad 21','18-07-2020','David Galleguillos',21);
+INSERT INTO test values (63,'Introduccion al comercio Avanzado','Esta es la prueba de nivel avanzado de la unidad 21','18-07-2020','David Galleguillos',21);
+INSERT INTO test values (64,'Microeconomia digital Basico','Esta prueba inicial de la unidad 22','18-07-2020','David Galleguillos',22);
+INSERT INTO test values (65,'Microeconomia digital Medio','Esta prueba de nivel medio de la unidad 22','18-07-2020','David Galleguillos',22);
+INSERT INTO test values (66,'Microeconomia digital Avanzado','Esta es la prueba de nivel avanzado de la unidad 22','18-07-2020','David Galleguillos',22);
+INSERT INTO test values (67,'Redes sociales Basico','Esta prueba inicial de la unidad 23','18-07-2020','David Galleguillos',23);
+INSERT INTO test values (68,'Redes sociales Medio','Esta prueba de nivel medio de la unidad 23','18-07-2020','David Galleguillos',23);
+INSERT INTO test values (69,'Redes sociales Avanzado','Esta es la prueba de nivel avanzado de la unidad 23','18-07-2020','David Galleguillos',23);
+INSERT INTO test values (70,'Automatizacion Basico','Esta prueba inicial de la unidad 24','18-07-2020','David Galleguillos',24);
+INSERT INTO test values (71,'Automatizacion Medio','Esta prueba de nivel medio de la unidad 24','18-07-2020','David Galleguillos',24);
+INSERT INTO test values (72,'Automatizacion Avanzado','Esta es la prueba de nivel avanzado de la unidad 24','18-07-2020','David Galleguillos',24);
+INSERT INTO test values (73,'Trabaja mientras descansas Basico','Esta prueba inicial de la unidad 25','18-07-2020','David Galleguillos',25);
+INSERT INTO test values (74,'Trabaja mientras descansas Medio','Esta prueba de nivel medio de la unidad 25','18-07-2020','David Galleguillos',25);
+INSERT INTO test values (75,'Trabaja mientras descansas Avanzado','Esta es la prueba de nivel avanzado de la unidad 25','18-07-2020','David Galleguillos',25);
+INSERT INTO test values (76,'Partners comerciales Basico','Esta prueba inicial de la unidad 26','18-07-2020','David Galleguillos',26);
+INSERT INTO test values (77,'Partners comerciales Medio','Esta prueba de nivel medio de la unidad 26','18-07-2020','David Galleguillos',26);
+INSERT INTO test values (78,'Partners comerciales Avanzado','Esta es la prueba de nivel avanzado de la unidad 26','18-07-2020','David Galleguillos',26);
+INSERT INTO test values (79,'Practica 1 Basico','Esta prueba inicial de la unidad 27','18-07-2020','David Galleguillos',27);
+INSERT INTO test values (80,'Practica 1 Medio','Esta prueba de nivel medio de la unidad 27','18-07-2020','David Galleguillos',27);
+INSERT INTO test values (81,'Practica 1 Avanzado','Esta es la prueba de nivel avanzado de la unidad 27','18-07-2020','David Galleguillos',27);
+INSERT INTO test values (82,'Practica 2 Basico','Esta prueba inicial de la unidad 28','18-07-2020','David Galleguillos',28);
+INSERT INTO test values (83,'Practica 2 Medio','Esta prueba de nivel medio de la unidad 28','18-07-2020','David Galleguillos',28);
+INSERT INTO test values (84,'Practica 2 Avanzado','Esta es la prueba de nivel avanzado de la unidad 28','18-07-2020','David Galleguillos',28);
+INSERT INTO test values (85,'Practica 3 Basico','Esta prueba inicial de la unidad 29','18-07-2020','David Galleguillos',29);
+INSERT INTO test values (86,'Practica 3 Medio','Esta prueba de nivel medio de la unidad 29','18-07-2020','David Galleguillos',29);
+INSERT INTO test values (87,'Practica 3 Avanzado','Esta es la prueba de nivel avanzado de la unidad 29','18-07-2020','David Galleguillos',29);
+INSERT INTO test values (88,'Evaluación final Basico','Esta prueba inicial de la unidad 30','18-07-2020','David Galleguillos',30);
+INSERT INTO test values (89,'Evaluación final Medio','Esta prueba de nivel medio de la unidad 30','18-07-2020','David Galleguillos',30);
+INSERT INTO test values (90,'Evaluación final Avanzado','Esta es la prueba de nivel avanzado de la unidad 30','18-07-2020','David Galleguillos',30);
+INSERT INTO test values (91,'PendienteBasico','Esta prueba inicial de la unidad 31','18-07-2020','David Galleguillos',31);
+INSERT INTO test values (92,'PendienteMedio','Esta prueba de nivel medio de la unidad 31','18-07-2020','David Galleguillos',31);
+INSERT INTO test values (93,'PendienteAvanzado','Esta es la prueba de nivel avanzado de la unidad 31','18-07-2020','David Galleguillos',31);
+INSERT INTO test values (94,'PendienteBasico','Esta prueba inicial de la unidad 32','18-07-2020','David Galleguillos',32);
+INSERT INTO test values (95,'PendienteMedio','Esta prueba de nivel medio de la unidad 32','18-07-2020','David Galleguillos',32);
+INSERT INTO test values (96,'PendienteAvanzado','Esta es la prueba de nivel avanzado de la unidad 32','18-07-2020','David Galleguillos',32);
+INSERT INTO test values (97,'PendienteBasico','Esta prueba inicial de la unidad 33','18-07-2020','David Galleguillos',33);
+INSERT INTO test values (98,'PendienteMedio','Esta prueba de nivel medio de la unidad 33','18-07-2020','David Galleguillos',33);
+INSERT INTO test values (99,'PendienteAvanzado','Esta es la prueba de nivel avanzado de la unidad 33','18-07-2020','David Galleguillos',33);
+INSERT INTO test values (100,'PendienteBasico','Esta prueba inicial de la unidad 34','18-07-2020','David Galleguillos',34);
+
+INSERT INTO preguntas values (1,'¿Que es peSeint?',10,1);
+INSERT INTO preguntas values (2,'¿Por que usamos pseint?',10,1);
+INSERT INTO preguntas values (3,'¿En cuanto tiempo se debe dominar pseint?',10,1);
+INSERT INTO preguntas values (4,'¿Cual codigo me permite hacer un ciclo en Pseint',10,1);
+INSERT INTO preguntas values (5,'¿Que es una funcion?',10,1);
+INSERT INTO preguntas values (6,'¿Que codigo devuelve el valor de una funcion?',10,1);
+INSERT INTO preguntas values (7,'¿Puedo modelar una algoritmo en Pseint?',10,1);
+INSERT INTO preguntas values (8,'¿Compo limpiar la pantalla en pseint?',10,1);
+INSERT INTO preguntas values (9,'¿Como detener un codigo en ejecucion en Pseint?',10,1);
+INSERT INTO preguntas values (10,'¿Cuales son codigos correctos en pseint?',10,1);
+INSERT INTO preguntas values (11,'Pregunta',10,2);
+INSERT INTO preguntas values (12,'Pregunta',10,2);
+INSERT INTO preguntas values (13,'Pregunta',10,2);
+INSERT INTO preguntas values (14,'Pregunta',10,2);
+INSERT INTO preguntas values (15,'Pregunta',10,2);
+INSERT INTO preguntas values (16,'Pregunta',10,2);
+INSERT INTO preguntas values (17,'Pregunta',10,2);
+INSERT INTO preguntas values (18,'Pregunta',10,2);
+INSERT INTO preguntas values (19,'Pregunta',10,2);
+INSERT INTO preguntas values (20,'Pregunta',10,2);
+INSERT INTO preguntas values (21,'Pregunta',10,3);
+INSERT INTO preguntas values (22,'Pregunta',10,3);
+INSERT INTO preguntas values (23,'Pregunta',10,3);
+INSERT INTO preguntas values (24,'Pregunta',10,3);
+INSERT INTO preguntas values (25,'Pregunta',10,3);
+INSERT INTO preguntas values (26,'Pregunta',10,3);
+INSERT INTO preguntas values (27,'Pregunta',10,3);
+INSERT INTO preguntas values (28,'Pregunta',10,3);
+INSERT INTO preguntas values (29,'Pregunta',10,3);
+INSERT INTO preguntas values (30,'Pregunta',10,3);
+INSERT INTO preguntas values (31,'Pregunta',10,4);
+INSERT INTO preguntas values (32,'Pregunta',10,4);
+INSERT INTO preguntas values (33,'Pregunta',10,4);
+INSERT INTO preguntas values (34,'Pregunta',10,4);
+INSERT INTO preguntas values (35,'Pregunta',10,4);
+INSERT INTO preguntas values (36,'Pregunta',10,4);
+INSERT INTO preguntas values (37,'Pregunta',10,4);
+INSERT INTO preguntas values (38,'Pregunta',10,4);
+INSERT INTO preguntas values (39,'Pregunta',10,4);
+INSERT INTO preguntas values (40,'Pregunta',10,4);
+INSERT INTO preguntas values (41,'Pregunta',10,5);
+INSERT INTO preguntas values (42,'Pregunta',10,5);
+INSERT INTO preguntas values (43,'Pregunta',10,5);
+INSERT INTO preguntas values (44,'Pregunta',10,5);
+INSERT INTO preguntas values (45,'Pregunta',10,5);
+INSERT INTO preguntas values (46,'Pregunta',10,5);
+INSERT INTO preguntas values (47,'Pregunta',10,5);
+INSERT INTO preguntas values (48,'Pregunta',10,5);
+INSERT INTO preguntas values (49,'Pregunta',10,5);
+INSERT INTO preguntas values (50,'Pregunta',10,5);
+INSERT INTO preguntas values (51,'Pregunta',10,6);
+INSERT INTO preguntas values (52,'Pregunta',10,6);
+INSERT INTO preguntas values (53,'Pregunta',10,6);
+INSERT INTO preguntas values (54,'Pregunta',10,6);
+INSERT INTO preguntas values (55,'Pregunta',10,6);
+INSERT INTO preguntas values (56,'Pregunta',10,6);
+INSERT INTO preguntas values (57,'Pregunta',10,6);
+INSERT INTO preguntas values (58,'Pregunta',10,6);
+INSERT INTO preguntas values (59,'Pregunta',10,6);
+INSERT INTO preguntas values (60,'Pregunta',10,6);
+INSERT INTO preguntas values (61,'Pregunta',10,7);
+INSERT INTO preguntas values (62,'Pregunta',10,7);
+INSERT INTO preguntas values (63,'Pregunta',10,7);
+INSERT INTO preguntas values (64,'Pregunta',10,7);
+INSERT INTO preguntas values (65,'Pregunta',10,7);
+INSERT INTO preguntas values (66,'Pregunta',10,7);
+INSERT INTO preguntas values (67,'Pregunta',10,7);
+INSERT INTO preguntas values (68,'Pregunta',10,7);
+INSERT INTO preguntas values (69,'Pregunta',10,7);
+INSERT INTO preguntas values (70,'Pregunta',10,7);
+INSERT INTO preguntas values (71,'Pregunta',10,8);
+INSERT INTO preguntas values (72,'Pregunta',10,8);
+INSERT INTO preguntas values (73,'Pregunta',10,8);
+INSERT INTO preguntas values (74,'Pregunta',10,8);
+INSERT INTO preguntas values (75,'Pregunta',10,8);
+INSERT INTO preguntas values (76,'Pregunta',10,8);
+INSERT INTO preguntas values (77,'Pregunta',10,8);
+INSERT INTO preguntas values (78,'Pregunta',10,8);
+INSERT INTO preguntas values (79,'Pregunta',10,8);
+INSERT INTO preguntas values (80,'Pregunta',10,8);
+INSERT INTO preguntas values (81,'Pregunta',10,9);
+INSERT INTO preguntas values (82,'Pregunta',10,9);
+INSERT INTO preguntas values (83,'Pregunta',10,9);
+INSERT INTO preguntas values (84,'Pregunta',10,9);
+INSERT INTO preguntas values (85,'Pregunta',10,9);
+INSERT INTO preguntas values (86,'Pregunta',10,9);
+INSERT INTO preguntas values (87,'Pregunta',10,9);
+INSERT INTO preguntas values (88,'Pregunta',10,9);
+INSERT INTO preguntas values (89,'Pregunta',10,9);
+INSERT INTO preguntas values (90,'Pregunta',10,9);
+INSERT INTO preguntas values (91,'Pregunta',10,10);
+INSERT INTO preguntas values (92,'Pregunta',10,10);
+INSERT INTO preguntas values (93,'Pregunta',10,10);
+INSERT INTO preguntas values (94,'Pregunta',10,10);
+INSERT INTO preguntas values (95,'Pregunta',10,10);
+INSERT INTO preguntas values (96,'Pregunta',10,10);
+INSERT INTO preguntas values (97,'Pregunta',10,10);
+INSERT INTO preguntas values (98,'Pregunta',10,10);
+INSERT INTO preguntas values (99,'Pregunta',10,10);
+INSERT INTO preguntas values (100,'Pregunta',10,10);
+
+INSERT INTO alternativas values (1,'Un lenguaje de programacion funcional para principiantes','Y',100,1);
+INSERT INTO alternativas values (2,'Un sistem de calculo de computador','N',0,1);
+INSERT INTO alternativas values (3,'Un sistema de coneccion remoto','N',0,1);
+INSERT INTO alternativas values (4,'Todas las anteriores','N',0,1);
+INSERT INTO alternativas values (5,'Ninguna','N',0,1);
+INSERT INTO alternativas values (6,'Para aprender a programar desde 0','Y',33,2);
+INSERT INTO alternativas values (7,'Para aprender las sentencias basicas de programacion','Y',33,2);
+INSERT INTO alternativas values (8,'Para comprender la logica de la programacion','Y',33,2);
+INSERT INTO alternativas values (9,'Todas las anteriores','Y',100,2);
+INSERT INTO alternativas values (10,'Ninguna','N',0,2);
+INSERT INTO alternativas values (11,'En 30 dias','Y',50,3);
+INSERT INTO alternativas values (12,'Antes  del siguiente la clase 13','Y',50,3);
+INSERT INTO alternativas values (13,'En 1 año','N',0,3);
+INSERT INTO alternativas values (14,'Todas las anteriores','N',0,3);
+INSERT INTO alternativas values (15,'Ninguna','N',0,3);
+INSERT INTO alternativas values (16,'Cierto','N',0,4);
+INSERT INTO alternativas values (17,'Cuando','N',0,4);
+INSERT INTO alternativas values (18,'Habria','N',0,4);
+INSERT INTO alternativas values (19,'Todas las anteriores','N',0,4);
+INSERT INTO alternativas values (20,'Ninguna','Y',100,4);
+INSERT INTO alternativas values (21,'Es una algoritmo representado de forma logica','Y',50,5);
+INSERT INTO alternativas values (22,'Una operacion entre 2 computadores ','N',0,5);
+INSERT INTO alternativas values (23,'Es una operacion logica secuencial','Y',50,5);
+INSERT INTO alternativas values (24,'Todas las anteriores','N',0,5);
+INSERT INTO alternativas values (25,'Ninguna','N',0,5);
+INSERT INTO alternativas values (26,'entrega','N',0,6);
+INSERT INTO alternativas values (27,'resultado','N',0,6);
+INSERT INTO alternativas values (28,'devuelve','Y',100,6);
+INSERT INTO alternativas values (29,'Todas las anteriores','N',0,6);
+INSERT INTO alternativas values (30,'Ninguna','N',0,6);
+INSERT INTO alternativas values (31,'Si, usando el modelador','Y',50,7);
+INSERT INTO alternativas values (32,'no','N',0,7);
+INSERT INTO alternativas values (33,'si, presionando f9','Y',50,7);
+INSERT INTO alternativas values (34,'Todas las anteriores','N',0,7);
+INSERT INTO alternativas values (35,'Ninguna','N',0,7);
+INSERT INTO alternativas values (36,'no se puede','N',0,8);
+INSERT INTO alternativas values (37,'escribiendo el codigo limpiar pantalla','Y',100,8);
+INSERT INTO alternativas values (38,'con clean windows','N',0,8);
+INSERT INTO alternativas values (39,'Todas las anteriores','N',0,8);
+INSERT INTO alternativas values (40,'Ninguna','N',0,8);
+INSERT INTO alternativas values (41,'control + c','N',0,9);
+INSERT INTO alternativas values (42,'control + x','N',0,9);
+INSERT INTO alternativas values (43,'presionando detener en el cuadro','Y',100,9);
+INSERT INTO alternativas values (44,'Todas las anteriores','N',0,9);
+INSERT INTO alternativas values (45,'Ninguna','N',0,9);
+INSERT INTO alternativas values (46,'escribir- leer- para- si entonces- si segun ','Y',100,10);
+INSERT INTO alternativas values (47,'read-writte-for-while','N',0,10);
+INSERT INTO alternativas values (48,'iniciar, detener','N',0,10);
+INSERT INTO alternativas values (49,'Todas las anteriores','N',0,10);
+INSERT INTO alternativas values (50,'Ninguna','N',0,10);
+INSERT INTO alternativas values (51,'descripcion1','Y',33,11);
+INSERT INTO alternativas values (52,'descripcion2','Y',33,11);
+INSERT INTO alternativas values (53,'descripcion3','Y',33,11);
+INSERT INTO alternativas values (54,'Todas las anteriores','Y',100,11);
+INSERT INTO alternativas values (55,'Ninguna','N',0,11);
+INSERT INTO alternativas values (56,'descripcion1','Y',50,12);
+INSERT INTO alternativas values (57,'descripcion2','Y',50,12);
+INSERT INTO alternativas values (58,'descripcion3','N',0,12);
+INSERT INTO alternativas values (59,'Todas las anteriores','N',0,12);
+INSERT INTO alternativas values (60,'Ninguna','N',0,12);
+INSERT INTO alternativas values (61,'descripcion1','N',0,13);
+INSERT INTO alternativas values (62,'descripcion2','N',0,13);
+INSERT INTO alternativas values (63,'descripcion3','N',0,13);
+INSERT INTO alternativas values (64,'Todas las anteriores','N',0,13);
+INSERT INTO alternativas values (65,'Ninguna','Y',100,13);
+INSERT INTO alternativas values (66,'descripcion1','Y',50,14);
+INSERT INTO alternativas values (67,'descripcion2','N',0,14);
+INSERT INTO alternativas values (68,'descripcion3','Y',50,14);
+INSERT INTO alternativas values (69,'Todas las anteriores','N',0,14);
+INSERT INTO alternativas values (70,'Ninguna','N',0,14);
+INSERT INTO alternativas values (71,'descripcion1','N',0,15);
+INSERT INTO alternativas values (72,'descripcion2','N',0,15);
+INSERT INTO alternativas values (73,'descripcion3','Y',100,15);
+INSERT INTO alternativas values (74,'Todas las anteriores','N',0,15);
+INSERT INTO alternativas values (75,'Ninguna','N',0,15);
+INSERT INTO alternativas values (76,'descripcion1','Y',50,16);
+INSERT INTO alternativas values (77,'descripcion2','N',0,16);
+INSERT INTO alternativas values (78,'descripcion3','Y',50,16);
+INSERT INTO alternativas values (79,'Todas las anteriores','N',0,16);
+INSERT INTO alternativas values (80,'Ninguna','N',0,16);
+INSERT INTO alternativas values (81,'descripcion1','N',0,17);
+INSERT INTO alternativas values (82,'descripcion2','Y',100,17);
+INSERT INTO alternativas values (83,'descripcion3','N',0,17);
+INSERT INTO alternativas values (84,'Todas las anteriores','N',0,17);
+INSERT INTO alternativas values (85,'Ninguna','N',0,17);
+INSERT INTO alternativas values (86,'descripcion1','N',0,18);
+INSERT INTO alternativas values (87,'descripcion2','N',0,18);
+INSERT INTO alternativas values (88,'descripcion3','Y',100,18);
+INSERT INTO alternativas values (89,'Todas las anteriores','N',0,18);
+INSERT INTO alternativas values (90,'Ninguna','N',0,18);
+INSERT INTO alternativas values (91,'descripcion1','Y',100,19);
+INSERT INTO alternativas values (92,'descripcion2','N',0,19);
+INSERT INTO alternativas values (93,'descripcion3','N',0,19);
+INSERT INTO alternativas values (94,'Todas las anteriores','N',0,19);
+INSERT INTO alternativas values (95,'Ninguna','N',0,19);
+INSERT INTO alternativas values (96,'descripcion1','Y',33,20);
+INSERT INTO alternativas values (97,'descripcion2','Y',33,20);
+INSERT INTO alternativas values (98,'descripcion3','Y',33,20);
+INSERT INTO alternativas values (99,'Todas las anteriores','Y',100,20);
+INSERT INTO alternativas values (100,'Ninguna','N',0,20);
+
+insert into testxalumno values (1,1,10,0,0,null,null);
+insert into testxalumno values (2,1,9,1,0,null,null);
+insert into testxalumno values (3,1,8,2,0,null,null);
+insert into testxalumno values (4,1,7,3,0,null,null);
+insert into testxalumno values (5,1,6,4,0,null,null);
+insert into testxalumno values (6,1,5,1,4,null,null);
+insert into testxalumno values (7,1,4,4,2,null,null);
+insert into testxalumno values (8,1,3,1,6,null,null);
+insert into testxalumno values (9,1,2,2,6,null,null);
+insert into testxalumno values (10,1,3,3,4,null,null);
+insert into testxalumno values (1,2,10,0,0,null,null);
+insert into testxalumno values (2,2,9,0,1,null,null);
+insert into testxalumno values (3,2,8,0,2,null,null);
+insert into testxalumno values (4,2,7,1,2,null,null);
+insert into testxalumno values (5,2,6,2,2,null,null);
+insert into testxalumno values (6,2,5,3,2,null,null);
+insert into testxalumno values (7,2,4,4,2,null,null);
+insert into testxalumno values (8,2,3,1,6,null,null);
+insert into testxalumno values (9,2,3,3,4,null,null);
+insert into testxalumno values (10,2,1,1,8,null,null);
+insert into testxalumno values (1,3,2,2,6,null,null);
+insert into testxalumno values (2,3,3,3,4,null,null);
+insert into testxalumno values (3,3,8,0,2,null,null);
+insert into testxalumno values (4,3,7,0,3,null,null);
+insert into testxalumno values (5,3,6,1,3,null,null);
+insert into testxalumno values (6,3,5,2,3,null,null);
+insert into testxalumno values (7,3,4,3,3,null,null);
+insert into testxalumno values (8,3,4,4,2,null,null);
+insert into testxalumno values (9,3,2,1,7,null,null);
+insert into testxalumno values (10,3,3,3,4,null,null);
+insert into testxalumno values (1,4,10,0,0,null,null);
+insert into testxalumno values (2,4,7,3,0,null,null);
+insert into testxalumno values (3,4,7,3,0,null,null);
+insert into testxalumno values (4,4,7,0,3,null,null);
+insert into testxalumno values (5,4,6,0,4,null,null);
+insert into testxalumno values (6,4,5,1,4,null,null);
+insert into testxalumno values (7,4,4,2,4,null,null);
+insert into testxalumno values (8,4,3,3,4,null,null);
+insert into testxalumno values (9,4,4,4,2,null,null);
+insert into testxalumno values (10,4,1,1,8,null,null);
+insert into testxalumno values (1,5,10,0,0,null,null);
+insert into testxalumno values (2,5,9,1,0,null,null);
+insert into testxalumno values (3,5,8,2,0,null,null);
+insert into testxalumno values (4,5,7,3,0,null,null);
+insert into testxalumno values (5,5,6,0,4,null,null);
+insert into testxalumno values (6,5,5,0,5,null,null);
+insert into testxalumno values (7,5,4,1,5,null,null);
+insert into testxalumno values (8,5,4,2,4,null,null);
+insert into testxalumno values (9,5,3,3,4,null,null);
+insert into testxalumno values (10,5,4,4,2,null,null);
+insert into testxalumno values (1,6,10,0,0,null,null);
+insert into testxalumno values (2,6,9,1,0,null,null);
+insert into testxalumno values (3,6,8,2,0,null,null);
+insert into testxalumno values (4,6,7,3,0,null,null);
+insert into testxalumno values (5,6,6,4,0,null,null);
+insert into testxalumno values (6,6,5,0,5,null,null);
+insert into testxalumno values (7,6,4,0,6,null,null);
+insert into testxalumno values (8,6,3,1,6,null,null);
+insert into testxalumno values (9,6,2,2,6,null,null);
+insert into testxalumno values (10,6,3,3,4,null,null);
+insert into testxalumno values (1,7,10,0,0,null,null);
+insert into testxalumno values (2,7,9,1,0,null,null);
+insert into testxalumno values (3,7,8,2,0,null,null);
+insert into testxalumno values (4,7,7,3,0,null,null);
+insert into testxalumno values (5,7,6,4,0,null,null);
+insert into testxalumno values (6,7,5,1,4,null,null);
+insert into testxalumno values (7,7,4,0,6,null,null);
+insert into testxalumno values (8,7,3,0,7,null,null);
+insert into testxalumno values (9,7,2,1,7,null,null);
+insert into testxalumno values (10,7,2,2,6,null,null);
+insert into testxalumno values (1,8,10,0,0,null,null);
+insert into testxalumno values (2,8,9,1,0,null,null);
+insert into testxalumno values (3,8,8,2,0,null,null);
+insert into testxalumno values (4,8,7,3,0,null,null);
+insert into testxalumno values (5,8,6,4,0,null,null);
+insert into testxalumno values (6,8,5,1,4,null,null);
+insert into testxalumno values (7,8,4,3,3,null,null);
+insert into testxalumno values (8,8,3,0,7,null,null);
+insert into testxalumno values (9,8,2,0,8,null,null);
+insert into testxalumno values (10,8,1,1,8,null,null);
+insert into testxalumno values (1,9,10,0,0,null,null);
+insert into testxalumno values (2,9,9,1,0,null,null);
+insert into testxalumno values (3,9,8,2,0,null,null);
+insert into testxalumno values (4,9,7,3,0,null,null);
+insert into testxalumno values (5,9,6,4,0,null,null);
+insert into testxalumno values (6,9,5,1,4,null,null);
+insert into testxalumno values (7,9,4,3,3,null,null);
+insert into testxalumno values (8,9,3,1,6,null,null);
+insert into testxalumno values (9,9,2,0,8,null,null);
+insert into testxalumno values (10,9,1,0,9,null,null);
+insert into testxalumno values (1,10,10,0,0,null,null);
+insert into testxalumno values (2,10,9,1,0,null,null);
+insert into testxalumno values (3,10,8,2,0,null,null);
+insert into testxalumno values (4,10,7,3,0,null,null);
+insert into testxalumno values (5,10,6,4,0,null,null);
+insert into testxalumno values (6,10,5,1,4,null,null);
+insert into testxalumno values (7,10,4,3,3,null,null);
+insert into testxalumno values (8,10,3,1,6,null,null);
+insert into testxalumno values (9,10,2,2,6,null,null);
+insert into testxalumno values (10,10,3,3,4,null,null);
+
+--1. Pregunta 1: Conocer el número de evaluaciones por curso.
+select curso.nombre from test group by cursos.nombre;
+--select count(cursos.id) as Cantidad_de_pruebas, cursos.nombre as Nombre_del_curso from test,unidades,cursos  where test.unidades_id=unidades.id and unidades.cursos_id=cursos.id group by cursos.nombre ;
+--select cursos.id as N_curso, substr(cursos.nombre,1,40) as Nombre_del_Curso, unidades.id as N_Unidad , substr(unidades.nombre,1,20) as Nombre_Unidad,test.id as N_prueba, substr(test.nombre,1,20) as Nombre_de_la_prueba, substr(test.descripcion,1,50) as Descripcion_de_la_prueba  from test,unidades,cursos where test.unidades_id=unidades.id and unidades.cursos_id=cursos.id; 
+--2. Conocer los cursos sin evaluaciones
+select DISTINCT cursos.nombre from cursos full join unidades on cursos.id=unidades.cursos_id full join test on unidades.id=test.unidades_id where test.id is null;
+--3  Determinar las evaluaciones con deficiencia. Una evaluación es deficiente:
+--a. Si no tiene preguntas.
+select test.nombre, count(test.nombre) from test full join preguntas on test.id=preguntas.test_id full join alternativas on preguntas.id=alternativas.preguntas_id group by test.nombre having count(preguntas.id)<=0;
+--b. Si hay preguntas con 2 ó menos alternativas
+select test.nombre, count(test.nombre) from test full join preguntas on test.id=preguntas.test_id full join alternativas on preguntas.id=alternativas.preguntas_id group by test.nombre having count(alternativas.id)<=2;
+--c. Si todas las alternativas son correctas o si todas las alternativas son incorrectas.--;
+select test.id from test where (select count (*) from test, preguntas, alternativas where test.id=preguntas.test_id and preguntas.id=alternativas.preguntas_id and alternativas.valorlogico='Y') =5;
+select test.id from test where (select count (*) from test, preguntas, alternativas where test.id=preguntas.test_id and preguntas.id=alternativas.preguntas_id and alternativas.valorlogico='N') =5;
+--select substr(test.nombre,1,40) as Nombre_del_Test, count(test.nombre) as N_Repeticiones from test join preguntas on test.id=preguntas.id join alternativas on preguntas.id=alternativas.preguntas_id group by test.nombre;
+--4. Determinar cuántos alumnos hay en cada curso.
+select cursos.nombre, count(alumnos.id) from  alumnos,cursos where cursos.id=alumnos.cursos_id group by cursos.nombre;
+--5. Obtener el puntaje no normalizado de cada evaluación. El puntaje no normalizado ha sido definido (requerimiento) como: P = buenas – malas/4. Si un alumno no contesta en una pregunta exactamente lo mismo que se ha definido como correcto, la pregunta cuenta como mala a menos que el alumno haya omitido. 
+select buenas, malas,omitidas,malas/4,buenas-(malas/4)  from testxalumno;
+--6. Obtener el puntaje normalizado, o sea, de 1,0 a 7,0.
+select buenas, malas,omitidas,malas/4,buenas-(malas/4) as Sin_Normalizar,((((buenas-malas)/4)+1)*2) as Normalizadas  from testxalumno;
+--7. Nombre de estudiantes de un curso determinado que aprueban una evaluación determinada (donde la nota de aprobación mínima es un 4,0).
+select substr(cursos.nombre,1,50) As Nombre_Del_curso, substr(alumnos.nombre,1,20)as Nombre_del_Alumno, substr(test.nombre,1,15) as Nombre_de_la_prueba,((((buenas-malas)/4)+1)*2) as Nota from alumnos,testxalumno,cursos,test where alumnos.id=testxalumno.alumnos_id and ((((buenas-malas)/4)+1)*2)>=4 and cursos.id=1 and test.id=1;
+--8. Nota promedio de los estudiantes de un curso determinado, para una evaluación de terminada.
+select substr(cursos.nombre,1,50) As Nombre_Del_curso, substr(alumnos.nombre,1,20)as Nombre_del_Alumno, substr(test.nombre,1,15) as Nombre_de_la_prueba,((((buenas-malas)/4)+1)*2) as Nota from alumnos,testxalumno,cursos,test where alumnos.id=testxalumno.alumnos_id and  cursos.id=1 and test.id=1 order by nota desc;
